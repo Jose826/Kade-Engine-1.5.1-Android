@@ -2,8 +2,7 @@ package;
 
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
-
-class CharacterSetting
+class PosSettings
 {
 	public var x(default, null):Int;
 	public var y(default, null):Int;
@@ -18,18 +17,17 @@ class CharacterSetting
 		this.flipped = flipped;
 	}
 }
-
 class MenuCharacter extends FlxSprite
 {
-	private static var settings:Map<String, CharacterSetting> = [
-		'bf' => new CharacterSetting(0, -20, 1.0, true),
-		'gf' => new CharacterSetting(50, 80, 1.5, true),
-		'dad' => new CharacterSetting(-15, 130),
-		'spooky' => new CharacterSetting(20, 30),
-		'pico' => new CharacterSetting(0, 0, 1.0, true),
-		'mom' => new CharacterSetting(-30, 140, 0.85),
-		'parents-christmas' => new CharacterSetting(100, 130, 1.8),
-		'senpai' => new CharacterSetting(-40, -45, 1.4)
+	private static var settings:Map<String, PosSettings> = [
+		'bf' => new PosSettings(0, -20, 1.0, true),
+		'gf' => new PosSettings(50, 80, 1.5, true),
+		'dad' => new PosSettings(-15, 130),
+		'spooky' => new PosSettings(20, 30),
+		'pico' => new PosSettings(-50, 50, 0.4, true),
+		'mom' => new PosSettings(-30, 140, 0.85),
+		'parents-christmas' => new PosSettings(100, 130, 1.8),
+		'senpai' => new PosSettings(-40, -45, 1.4)
 	];
 
 	private var flipped:Bool = false;
@@ -57,7 +55,7 @@ class MenuCharacter extends FlxSprite
 		updateHitbox();
 	}
 
-	public function setCharacter(character:String):Void
+	public function setChr(character:String):Void
 	{
 		if (character == '')
 		{
@@ -71,7 +69,7 @@ class MenuCharacter extends FlxSprite
 
 		animation.play(character);
 
-		var setting:CharacterSetting = settings[character];
+		var setting:PosSettings = settings[character];
 		offset.set(setting.x, setting.y);
 		setGraphicSize(Std.int(width * setting.scale));
 		flipX = setting.flipped != flipped;
